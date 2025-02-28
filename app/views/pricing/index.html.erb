@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pricing Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    select {
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Select Your Country to See Pricing</h1>
+
+  <form>
+    <select id="country" onchange="showPrice()">
+      <option>Select Country</option>
+      <% @countries.each do |country| %>
+        <option value="<%= country %>"><%= country %></option>
+      <% end %>
+    </select>
+  </form>
+
+  <p id="price"></p>
+
+  <script>
+    const pricingData = <%= raw @pricing_data.to_json %>;
+
+    function showPrice() {
+      const country = document.getElementById("country").value;
+      const price = pricingData[country] || "No pricing available";
+      document.getElementById("price").innerText = price;
+    }
+  </script>
+</body>
+</html>
+
+
